@@ -1,0 +1,40 @@
+<project name="intellij-ant-sql-test-build" basedir=".">
+
+    <path id="classpath">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="dist"/>
+    </target>
+
+    <target name="compile" depends="clean">
+
+        <!-- compile classes -->
+        <mkdir dir="dist/classes"/>
+        <javac srcdir="src" destdir="dist/classes" source="1.8" target="1.8"
+               includeantruntime="false"
+               encoding="UTF-8" debug="true"
+               debuglevel="lines,vars,source" optimize="true"
+               nowarn="false">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </javac>
+        <copy todir="dist/classes">
+            <fileset dir="src">
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile" description="Build jar">
+        <jar file="dist/antsqltest.jar">
+            <fileset dir="dist/classes">
+                <include name="**"/>
+            </fileset>
+        </jar>
+    </target>
+
+</project>

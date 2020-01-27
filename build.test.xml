@@ -1,0 +1,21 @@
+<project name="intellij-ant-sql-test" basedir=".">
+
+    <path id="classpath">
+        <fileset dir="dist">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="test">
+        <taskdef resource="ant.properties" classpathref="classpath"/>
+        <!-- ok with 2019.3 -->
+        <testsql property="value"/>
+        <sqlexception property="value"/>
+
+        <!-- properties not available with 2019.3, ok in 2019.1.4 -->
+        <fakedatasource property="value"/>
+        <drivermanager property="value"/>
+        <!-- does not work at all with 2019.3, ok in 2019.1.4 -->
+        <sql driver="test"/>
+    </target>
+</project>
